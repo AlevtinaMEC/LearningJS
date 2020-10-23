@@ -31,10 +31,10 @@ class Game {
 }
 
 class Robot{
-    constructor(name){
+    constructor(name,hp,damage){
         this.name = name;
-        this.hp = 10;
-        this.damage = 3;
+        this.hp = hp;
+        this.damage = damage;
     }
 
     getDamage(damage){
@@ -53,3 +53,57 @@ class Robot{
 
 const game = new Game();
 game.play();
+
+class Heavy extends Robot{
+    constructor(name){
+        super(name,50,5);
+        this.armor=30;
+        
+    }
+    getDamage(damage){
+        this.hp = this.hp-(damage*(1-this.armor/100));
+    }
+}
+
+//const heavy = new Heavy("R2");
+//heavy.getDamage(50);
+//console.log(heavy);
+
+class Assault extends Robot{
+    constructor(name){
+        super(name,50,5);
+        this.crit=50;
+        
+    }
+    bringDamage(){
+        let v = Math.random()*100;
+        if (v>this.crit){
+            return this.damage;
+        } else {
+            return this.damage*2;
+        }
+    }
+}
+
+    // const heavy = new Assault("R2");
+    // console.log(heavy.bringDamage());
+
+    class Light extends Robot{
+        constructor(name){
+            super(name,50,5);
+            this.agility=30;
+            
+        }
+        getDamage(damage){
+            let v = Math.random()*100;
+        if (v<this.agility){
+              this.hp = this.hp-damage;
+        } 
+      
+    }
+}
+
+    const heavy = new Light("R2");
+    heavy.getDamage(10);
+    console.log(heavy);
+
